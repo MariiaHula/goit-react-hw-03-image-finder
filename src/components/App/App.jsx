@@ -24,14 +24,14 @@ export class App extends Component {
     this.getDataGallery({ inputValue, page });
   }
 
-  async componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(_, prevState) {
     const { inputValue, page } = this.state;
 
     if (prevState.page !== page || prevState.inputValue !== inputValue) {
       this.setState({ loading: true });
       this.getDataGallery({ inputValue, page });
       setTimeout(() => {
-        if (!this.state.images.length) {
+        if (!this.state.images.length || page > 1) {
           return;
         } else {
           toast.success(`hooray, we found ${this.state.totalHits} pictures`);
